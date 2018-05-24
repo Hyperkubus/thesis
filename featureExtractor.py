@@ -27,11 +27,11 @@ def countVowels(string):
 def v2c(string):
     #returns the ratio between vowels and consonants
     if(len(string) < 1):
-        return False
+        return -1
     total = countAlpha(string)
     v = countVowels(string)
     if(total<1):
-        return False
+        return -1
     return v/total
 
 def entropy(string):
@@ -54,7 +54,7 @@ def extract(input_file, output_file):
         with open(input_file,'r') as input:
             i = 0
             lines = input.readlines()
-            output.write('len, cnt_alpha, cnt_nonAlpha, alpha_to_special, cnt_vowel, cnt_consonant, vowel_to_consonant, entropy, entropy_ideal, emtropy_percentage, fleschkincaid, smog, dalechall, gunningfog, sybl, hex\n')
+            output.write('len,cnt_alpha,cnt_nonAlpha,alpha_to_special,cnt_vowel,cnt_consonant,vowel_to_consonant,entropy,entropy_ideal,emtropy_percentage,fleschkincaid,smog,dalechall,gunningfog,sybl,hex\n')
             for line in lines:
                 myLine = line.strip()
                 if(myLine and len(myLine)>0):

@@ -1,43 +1,45 @@
 import numpy as np
+import pandas as pd
 
-data = np.genfromtxt('Data/features.csv',delimiter=',',skip_header=1)
-dataneg = np.genfromtxt('Data/features.neg.csv',delimiter=',',skip_header=1)
+data = pd.read_csv('Data/features.csv')
+dataneg = pd.read_csv('Data/features.neg.csv')
 
-if(data.shape[0] != dataneg.shape[0]):
-    print("Data and DataNeg should have same size")
+data = data.sort_values(by=['len'])
+data = data.assign(valid=True)
+data = data.reset_index(drop=True)
+
+dataneg = dataneg.sort_values(by=['len'])
+dataneg = dataneg.assign(valid=False)
+dataneg = dataneg.reset_index(drop=True)
+
+if(data.shape != dataneg.shape):
+    print("Data and DataNeg should have same shape")
+    print(data.shape)
+    print(dataneg.shape)
     exit()
 
+data_80 = data[data.index % 5 != 0]  # Excludes every 5th row starting from 0
+data_80 = data_80.reset_index(drop=True)
+data_20 = data[data.index % 5 == 0]  # Selects every 5th raw starting from 0
+data_20 = data_20.reset_index(drop=True)
+data_80_80 = data_80[data_80.index % 5 != 0]  # Excludes every 5th row starting from 0
+data_80_80 = data_80_80.reset_index(drop=True)
+data_80_20 = data_80[data_80.index % 5 == 0]  # Selects every 5th raw starting from 0
+data_80_20 = data_80_20.reset_index(drop=True)
 
-data.sort(0)
+dataneg_80 = dataneg[dataneg.index % 5 != 0]  # Excludes every 5th row starting from 0
+dataneg_80 = dataneg_80.reset_index(drop=True)
+dataneg_20 = dataneg[dataneg.index % 5 == 0]  # Selects every 5th raw starting from 0
+dataneg_20 = dataneg_20.reset_index(drop=True)
+dataneg_80_80 = dataneg_80[dataneg_80.index % 5 != 0]  # Excludes every 5th row starting from 0
+dataneg_80_80 = dataneg_80_80.reset_index(drop=True)
+dataneg_80_20 = dataneg_80[dataneg_80.index % 5 == 0]  # Selects every 5th raw starting from 0
+dataneg_80_20 = dataneg_80_20.reset_index(drop=True)
 
-ones = np.ones((data.shape[0],1))
-data = np.append(data, ones ,axis=1)
-dataneg.sort(0)
-zeroes = np.zeros((dataneg.shape[0],1))
-dataneg = np.append(dataneg, zeroes ,axis=1)
+data_test = pd.concat([data_20, dataneg_20])
+data_validate = pd.concat([data_80_20, dataneg_80_20])
+data_train = pd.concat([data_80_80, dataneg_80_80])
 
-_100 = range(0,data.shape[0])
-_20 = range(0,data.shape[0],5)
-_80 = np.delete(_100, _20)
-
-data_20 = np.delete(data, list(_80), axis=0)
-dataneg_20 = np.delete(dataneg, list(_80), axis=0)
-data_validate = np.concatenate((data_20,dataneg_20))
-np.savetxt("Data/Datasets/test.csv", data_validate, delimiter=",")
-
-data_80 = np.delete(data, list(_20), axis=0)
-dataneg_80 = np.delete(dataneg, list(_20), axis=0)
-
-_100 = range(0,data_80.shape[0])
-_20 = range(0,data_80.shape[0],5)
-_80 = np.delete(_100, _20)
-
-data_20 = np.delete(data, list(_80), axis=0)
-dataneg_20 = np.delete(dataneg, list(_80), axis=0)
-data_test = np.concatenate((data_20,dataneg_20))
-np.savetxt("Data/Datasets/validation.csv", data_test, delimiter=",")
-
-data_80 = np.delete(data, list(_20), axis=0)
-dataneg_80 = np.delete(dataneg, list(_20), axis=0)
-data_train = np.concatenate((data_80,dataneg_80))
-np.savetxt("Data/Datasets/train.csv", data_train, delimiter=",")
+data_test.to_csv("Data/Datasets/test.csv")
+data_validate.to_csv("Data/Datasets/validate.csv")
+data_train.to_csv("Data/Datasets/train.csv")
