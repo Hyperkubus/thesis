@@ -38,3 +38,17 @@ featureExtractor.py extracts all the features to be used by our algorithms
 ## datasetSplitter.py
 
 datasetSplitter.py splits our extracted features into train, validation and test datasets
+
+## Algorithms
+### bayes.py
+Bayes train Total: 39862 Mislabled: 3184[323|2861] (0.079876)
+Bayes validation Total: 9966 Mislabled: 779[79|700] (0.078166)
+Bayes test Total: 12458 Mislabled: 1025[110|915] (0.082276)
+### markov.py
+Markov train: 19929 Mislabled: 0[0|0] (0.000000)
+Markov validate: 9966 Mislabled: 171[42|129] (0.017158)
+Markov test: 12458 Mislabled: 171[42|129] (0.013726)
+### neuralnet.py
+keras train: 39862 Mislabled: 1145[357|788] (0.028724)
+keras validate: 9966 Mislabled: 289[92|197] (0.028999)
+keras test: 12458 Mislabled: 336[107|229] (0.026971)
