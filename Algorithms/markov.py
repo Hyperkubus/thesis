@@ -54,8 +54,11 @@ trainData = pd.read_csv("../Data/Datasets/train.csv", dtype=dtype)
 validateData = pd.read_csv("../Data/Datasets/validate.csv", dtype=dtype)
 testData = pd.read_csv("../Data/Datasets/test.csv", dtype=dtype)
 
-trainData = trainData.sort_values('valid').iloc[(int(len(trainData)/2+1)):-1]
+trainTarget = trainData['valid']
+trainData = trainData.sort_values('valid')
 trainData = trainData['hex'].apply(hex2string)
+trainValidation = trainData
+trainData = trainData.iloc[(int(len(trainData)/2+1)):-1]
 trainData = trainData.reset_index(drop=True)
 validateTarget = validateData['valid']
 validateData = validateData['hex'].apply(hex2string)
@@ -72,13 +75,13 @@ for i in range(trainData.shape[0]):
 mislabled = 0
 cnt_fn = 0
 cnt_fp = 0
-for i in range(trainData.shape[0]):
-    pred = validate(trainData[i], model)
-    if (pred != True):
+for i in range(trainValidation.shape[0]):
+    pred = validate(trainValidation[i], model)
+    if (pred != trainTarget[i]):
         cnt_fn += (pred==0)
         cnt_fp += (pred==1)
         mislabled += 1
-print("Markov train: %d Mislabled: %d[%d|%d] (%f)" % (trainData.shape[0],mislabled,cnt_fp,cnt_fn,mislabled/trainData.shape[0]))
+print("Markov train: %d Mislabled: %d[%d|%d] (%f)" % (trainValidation.shape[0],mislabled,cnt_fp,cnt_fn,mislabled/trainValidation.shape[0]))
 
 print("Validation...")
 mislabled = 0
