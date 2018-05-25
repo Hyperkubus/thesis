@@ -40,15 +40,15 @@ featureExtractor.py extracts all the features to be used by our algorithms
 datasetSplitter.py splits our extracted features into train, validation and test datasets
 
 ## Algorithms
-### bayes.py
-Bayes train Total: 39862 Mislabled: 3184[323|2861] (0.079876)
-Bayes validation Total: 9966 Mislabled: 779[79|700] (0.078166)
-Bayes test Total: 12458 Mislabled: 1025[110|915] (0.082276)
-### markov.py
-Markov train: 19929 Mislabled: 0[0|0] (0.000000)
-Markov validate: 9966 Mislabled: 171[42|129] (0.017158)
-Markov test: 12458 Mislabled: 171[42|129] (0.013726)
-### neuralnet.py
-keras train: 39862 Mislabled: 1145[357|788] (0.028724)
-keras validate: 9966 Mislabled: 289[92|197] (0.028999)
-keras test: 12458 Mislabled: 336[107|229] (0.026971)
+
+Model |Data      |Total|Mislabeld|FalsePositive|FalseNegative|PercentageFalse
+------|----------|-----|---------|-------------|-------------|---------------
+Bayes |train     |39862|3184     |323          |2861         |7.9876
+Bayes |validation|9966 |779      |79           |700          |7.8166
+Bayes |test      |12458|1025     |110          |915          |8.2276
+Markov|train     |19929|0        |0            |0            |0.0000
+Markov|validate  |9966 |171      |42           |129          |1.7158
+Markov|test      |12458|171      |42           |129          |1.3726
+keras |train     |39862|1145     |357          |788          |2.8724)
+keras |validate  |9966 |289      |92           |197          |2.8999)
+keras |test      |12458|336      |107          |229          |2.6971)
