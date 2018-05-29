@@ -43,6 +43,9 @@ datasetSplitter.py splits our extracted features into train, validation and test
 
 Model |Data      |Total|Mislabeld|FalsePositive|FalseNegative|PercentageFalse
 ------|----------|-----|---------|-------------|-------------|---------------
+Dict  |train     |39862|10794    |0            |10794        |27.08%
+Dict  |validation|9966 |2718     |0            |2718         |27.27%
+Dict  |test      |12458|3400     |1            |3399         |27.29%
 Bayes |train     |39862|3184     |323          |2861         |7.98%
 Bayes |validation|9966 |779      |79           |700          |7.81%
 Bayes |test      |12458|1025     |110          |915          |8.22%
@@ -52,3 +55,7 @@ Markov|test      |12458|171      |42           |129          |1.37%
 keras |train     |39862|1145     |357          |788          |2.87%
 keras |validate  |9966 |289      |92           |197          |2.89%
 keras |test      |12458|336      |107          |229          |2.69%
+
+
+# Analysis
+https://stackoverflow.com/questions/13507205/finding-memory-usage-cpu-utilization-execution-time-for-running-a-python-scrip/13507805#13507805
