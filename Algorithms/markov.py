@@ -25,6 +25,19 @@ def validate(string, model):
             return False
     return True
 
+def test(label, markov, data, target):
+    mislabled = 0
+    cnt_fn = 0
+    cnt_fp = 0
+    for i in range(data.shape[0]):
+        pred = validate(data[i], markov)
+        if (pred != target[i]):
+            cnt_fn += (pred == 0)
+            cnt_fp += (pred == 1)
+            mislabled += 1
+    print("Markov %s: %d Mislabled: %d[%d|%d] (%f)" % (label, target.shape[0], mislabled, cnt_fp, cnt_fn, mislabled / target.shape[0]))
+    return
+
 def hex2string(hex):
     return str(bytes.fromhex(hex))
 
@@ -72,39 +85,6 @@ for i in range(trainData.shape[0]):
     model = train(trainData[i],model)
     print("%d/%d" % (i, trainData.shape[0]))
 
-mislabled = 0
-cnt_fn = 0
-cnt_fp = 0
-for i in range(trainValidation.shape[0]):
-    pred = validate(trainValidation[i], model)
-    if (pred != trainTarget[i]):
-        cnt_fn += (pred==0)
-        cnt_fp += (pred==1)
-        mislabled += 1
-print("Markov train: %d Mislabled: %d[%d|%d] (%f)" % (trainValidation.shape[0],mislabled,cnt_fp,cnt_fn,mislabled/trainValidation.shape[0]))
-
-print("Validation...")
-mislabled = 0
-cnt_fn = 0
-cnt_fp = 0
-for i in range(validateData.shape[0]):
-    pred = validate(testData[i], model)
-    if (pred != testTarget[i]):
-        cnt_fn += (pred==0)
-        cnt_fp += (pred==1)
-        mislabled += 1
-print("Markov validate: %d Mislabled: %d[%d|%d] (%f)" % (validateData.shape[0],mislabled,cnt_fp,cnt_fn,mislabled/validateData.shape[0]))
-
-print("Testing...")
-mislabled = 0
-cnt_fn = 0
-cnt_fp = 0
-for i in range(testData.shape[0]):
-    pred = validate(testData[i],model)
-    if(pred != testTarget[i]):
-        cnt_fn += (pred==0)
-        cnt_fp += (pred==1)
-        mislabled += 1
-print("Markov test: %d Mislabled: %d[%d|%d] (%f)" % (testData.shape[0],mislabled,cnt_fp,cnt_fn,mislabled/testData.shape[0]))
-
-
+test('train',model,trainData,trainTarget)
+test('validate',model,validateData,validateTarget)
+test('test',model,testData,testTarget)

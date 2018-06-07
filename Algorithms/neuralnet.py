@@ -5,6 +5,21 @@ from sklearn.preprocessing import LabelEncoder
 from keras.layers import Input, Dense
 from keras.models import Model
 
+def test(label, model, data, target):
+    y_pred = model.predict(data)
+    total = data.shape[0]
+    cnt_fp = 0
+    cnt_fn = 0
+    mislabled = 0
+    for i in range(0, y_pred.shape[0]):
+        pred = round(y_pred[i, 0])
+        if (pred != target[i]):
+            cnt_fn += (pred == 0)
+            cnt_fp += (pred == 1)
+        mislabled = cnt_fn + cnt_fp
+    print("keras %s: %d Mislabled: %d[%d|%d] (%f)" % (label, total, mislabled, cnt_fp, cnt_fn, mislabled / total))
+
+
 dtype = {
         '': int,
         'len': int,
@@ -60,41 +75,6 @@ history = model.fit(data_train,target_train,epochs=250,validation_data=(data_val
 
 model.save('neuralnet.h5')
 
-y_pred = model.predict(data_train)
-total = data_train.shape[0]
-cnt_fp = 0
-cnt_fn = 0
-mislabled = 0
-for i in range(0,y_pred.shape[0]):
-    pred = round(y_pred[i,0])
-    if(pred != target_train[i]):
-        cnt_fn += (pred==0)
-        cnt_fp += (pred==1)
-    mislabled = cnt_fn + cnt_fp
-print("keras train: %d Mislabled: %d[%d|%d] (%f)" % (total,mislabled,cnt_fp,cnt_fn,mislabled/total))
-
-y_pred = model.predict(data_validate)
-total = data_validate.shape[0]
-cnt_fp = 0
-cnt_fn = 0
-mislabled = 0
-for i in range(0,y_pred.shape[0]):
-    pred = round(y_pred[i,0])
-    if(pred != target_validate[i]):
-        cnt_fn += (pred==0)
-        cnt_fp += (pred==1)
-    mislabled = cnt_fn + cnt_fp
-print("keras validate: %d Mislabled: %d[%d|%d] (%f)" % (total,mislabled,cnt_fp,cnt_fn,mislabled/total))
-
-y_pred = model.predict(data_test)
-total = data_test.shape[0]
-cnt_fp = 0
-cnt_fn = 0
-mislabled = 0
-for i in range(0,y_pred.shape[0]):
-    pred = round(y_pred[i,0])
-    if(pred != target_test[i]):
-        cnt_fn += (pred==0)
-        cnt_fp += (pred==1)
-    mislabled = cnt_fn + cnt_fp
-print("keras test: %d Mislabled: %d[%d|%d] (%f)" % (total,mislabled,cnt_fp,cnt_fn,mislabled/total))
+test('train',model,data_train,target_train)
+test('validate',model,data_validate,target_validate)
+test('test',model,data_test,target_test)

@@ -1,6 +1,24 @@
 import pandas as pd
 from sklearn.naive_bayes import GaussianNB
 
+def train(data,target):
+    gnb = GaussianNB()
+    gnb.fit(data_train.values, target_train.values)
+    return gnb
+
+def test(label,gnb,data,target):
+    y_pred = gnb.predict(data)
+    total = target.shape[0]
+    cnt_fp = 0
+    cnt_fn = 0
+    for i in range(0, y_pred.shape[0]):
+        if (y_pred[i] != target[i]):
+            cnt_fn += (y_pred[i] == 0)
+            cnt_fp += (y_pred[i] == 1)
+    mislabled = cnt_fn + cnt_fp
+    print("%s Total: %d Mislabled: %d[%d|%d] (%f)" % (label, total, mislabled, cnt_fp, cnt_fn, mislabled / total))
+    return
+
 dtype = {
         '': int,
         'len': int,
@@ -26,7 +44,6 @@ trainData = pd.read_csv("../Data/Datasets/train.csv", dtype=dtype)
 validateData = pd.read_csv("../Data/Datasets/validate.csv", dtype=dtype)
 testData = pd.read_csv("../Data/Datasets/test.csv", dtype=dtype)
 
-
 data_train = trainData.iloc[:,1:15]
 target_train = trainData.iloc[:,-1]
 
@@ -36,38 +53,8 @@ target_validate = validateData.iloc[:,-1]
 data_test = testData.iloc[:,1:15]
 target_test = testData.iloc[:,-1]
 
-gnb = GaussianNB()
-gnb.fit(data_train.values, target_train.values)
+gnb = train(data_train, target_train)
 
-y_pred = gnb.predict(data_train)
-total = data_train.shape[0]
-cnt_fp = 0
-cnt_fn = 0
-for i in range(0,y_pred.shape[0]):
-    if(y_pred[i] != target_train[i]):
-        cnt_fn += (y_pred[i]==0)
-        cnt_fp += (y_pred[i]==1)
-mislabled = cnt_fn+cnt_fp
-print("Train Total: %d Mislabled: %d[%d|%d] (%f)" % (total,mislabled,cnt_fp,cnt_fn,mislabled/total))
-
-y_pred = gnb.predict(data_validate)
-total = data_validate.shape[0]
-cnt_fp = 0
-cnt_fn = 0
-for i in range(0,y_pred.shape[0]):
-    if(y_pred[i] != target_validate[i]):
-        cnt_fn += (y_pred[i]==0)
-        cnt_fp += (y_pred[i]==1)
-mislabled = cnt_fn+cnt_fp
-print("Validation Total: %d Mislabled: %d[%d|%d] (%f)" % (total,mislabled,cnt_fp,cnt_fn,mislabled/total))
-
-y_pred = gnb.predict(data_test)
-total = data_test.shape[0]
-cnt_fp = 0
-cnt_fn = 0
-for i in range(0,y_pred.shape[0]):
-    if(y_pred[i] != target_test[i]):
-        cnt_fn += (y_pred[i]==0)
-        cnt_fp += (y_pred[i]==1)
-mislabled = cnt_fn+cnt_fp
-print("Test Total: %d Mislabled: %d[%d|%d] (%f)" % (total,mislabled,cnt_fp,cnt_fn,mislabled/total))
+test('train',gnb,data_train,target_train)
+test('validate',gnb,data_validate,target_validate)
+test('test',gnb,data_test,target_test)
