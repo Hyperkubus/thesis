@@ -60,9 +60,9 @@ keras |test      |12458|336      |107          |229          |2.69%
 # Analysis
 https://stackoverflow.com/questions/13507205/finding-memory-usage-cpu-utilization-execution-time-for-running-a-python-scrip/13507805#13507805
 
-Model | CPUtime test() |
-------|----------------|
-Dict  | 511.00s        |
-Bayes |   1.55s        |
-Markov|   2.69s        |
-Keras |   1.97s        |
+Model | CPUtime test() | Memory Usage (inc. Train) |
+------|----------------|---------------------------|
+Dict  | 511.00s        | 132 Mb                    |
+Bayes |   1.55s        | 121 Mb                    |
+Markov|   2.69s        |  79 Mb                    |
+Keras |   1.97s        | 252 Mb                    |
