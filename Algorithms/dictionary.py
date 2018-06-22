@@ -1,57 +1,31 @@
 import pandas as pd
+import time
+from Utils.DataLoader import hex2string
 from sklearn.naive_bayes import GaussianNB
 
+def train():
+    start_time = time.time()
+    dict = pd.read_csv("Data/dictionary.csv")
+    runtime = time.time()-start_time
+    print("Dictionary loaded with %d Entries and took %fs" % (dict.shape[0],runtime))
+    return dict
+
 def test(label, dictionary ,data, target):
+    data = data['hex'].apply(hex2string)
     total = data.shape[0]
+    start_time = time.time()
+    y_pred = data.isin(dictionary)
+    runtime = time.time()-start_time
     cnt_fp = 0
     cnt_fn = 0
-    for i in range(len(data)):
-        pred = (str(data[i]) in dictionary.values)
-        if (pred != target[i]):
-            cnt_fn += (target[i] == 1)
-            cnt_fp += (target[i] == 0)
-        print("%i/%i" % (i, total))
+
+    for i in range(0, y_pred.shape[0]):
+        if (y_pred[i] != target[i]):
+            cnt_fn += (y_pred[i] == 0)
+            cnt_fp += (y_pred[i] == 1)
     mislabled = cnt_fn + cnt_fp
-    print("Dict %s: %d Mislabled: %d[%d|%d] (%f)" % (label ,total, mislabled, cnt_fp, cnt_fn, mislabled / total))
+    print("bayes %s Total: %d Mislabled: %d[%d|%d] (%f%%) [took: %fs]" % (label, total, mislabled, cnt_fp, cnt_fn, 100*mislabled / total, runtime))
     return
 
-def hex2string(hex):
-    return bytes.fromhex(hex).decode('utf-8')
-
-dtype = {
-        '': int,
-        'len': int,
-        'cnt_alpha': int,
-        'cnt_nonAlpha': int,
-        'alpha_to_special': float,
-        'cnt_vowel': int,
-        'cnt_consonant': int,
-        'vowel_to_consonant': object,
-        'entropy': float,
-        'entropy_ideal': float,
-        'emtropy_percentage': float,
-        'fleschkincaid': float,
-        'smog': float,
-        'dalechall': float,
-        'gunningfog': float,
-        'sybl': int,
-        'hex': str,
-        'valid': bool
-}
-
-dictionary = pd.read_csv("../Data/dictionary.csv")
-
-trainData = pd.read_csv("../Data/Datasets/train.csv", dtype=dtype)
-validateData = pd.read_csv("../Data/Datasets/validate.csv", dtype=dtype)
-testData = pd.read_csv("../Data/Datasets/test.csv", dtype=dtype)
-
-trainTarget = trainData['valid']
-trainData = trainData['hex'].apply(hex2string)
-validateTarget = validateData['valid']
-validateData = validateData['hex'].apply(hex2string)
-testTarget = testData['valid']
-testData = testData['hex'].apply(hex2string)
-
-test('train',dictionary,trainData,trainTarget)
-test('validate',dictionary,validateData,validateTarget)
-test('test',dictionary,testData,testTarget)
+def load():
+    return pd.read_csv("../Data/dictionary.csv")

@@ -52,13 +52,18 @@ Bayes |test      |12458|1025     |110          |915          |8.22%
 Markov|train     |39862|110      |109          |1            |2.76%
 Markov|validate  |9966 |171      |42           |129          |1.71%
 Markov|test      |12458|171      |42           |129          |1.37%
-keras |train     |39862|1145     |357          |788          |2.87%
-keras |validate  |9966 |289      |92           |197          |2.89%
-keras |test      |12458|336      |107          |229          |2.69%
+keras |train     |39862|1137     |389          |748          |2.85%
+keras |validate  |9966 |292      |104          |188          |2.93%
+keras |test      |12458|336      |129          |207          |2.70%
+nohidd|train     |39862|1308     |748          |560          |3.28%
+nohidd|validate  |9966 |338      |194          |144          |3.39%
+nohidd|test      |12458|412      |263          |149          |3.31%
 
 
 # Analysis
-https://stackoverflow.com/questions/13507205/finding-memory-usage-cpu-utilization-execution-time-for-running-a-python-scrip/13507805#13507805
+
+verschiedene Eingabegroessen testen
+Testdaten grössen
 
 Model | CPUtime test() | Memory Usage (inc. Train) |
 ------|----------------|---------------------------|

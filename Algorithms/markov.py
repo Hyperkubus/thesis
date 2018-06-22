@@ -1,8 +1,15 @@
 import numpy as np
 import pandas as pd
+import time
 import binascii
+from Utils.DataLoader import hex2string
 
-def train(string, model=None):
+def cleanData(data):
+    data = data['hex'].apply(hex2string)
+    data = data.reset_index(drop=True)
+    return data
+
+def trainSingle(string, model=None):
     if(model == None):
         model = {}
     string = " "+string
@@ -16,6 +23,20 @@ def train(string, model=None):
                 model[lastletter].append(letter)
     return model
 
+def train(data,target):
+    model = {}
+    data = data['hex'].apply(hex2string)
+    data = pd.concat([data, target], axis=1)
+    data = data[data['valid'] != True]
+    data = data.reset_index(drop=True)
+    data = data['hex']
+    start_time = time.time()
+    for i in range(data.shape[0]):
+        model = trainSingle(data[i], model)
+    runtime = time.time() - start_time
+    print("Markov trained with %d Entries and took %fs" % (data.shape[0], runtime))
+    return model
+
 def validate(string, model):
     string = " "+string
     for i in range(len(string)-1):
@@ -26,65 +47,17 @@ def validate(string, model):
     return True
 
 def test(label, markov, data, target):
+    data = cleanData(data)
     mislabled = 0
     cnt_fn = 0
     cnt_fp = 0
+    time_start = time.time()
     for i in range(data.shape[0]):
         pred = validate(data[i], markov)
         if (pred != target[i]):
             cnt_fn += (pred == 0)
             cnt_fp += (pred == 1)
             mislabled += 1
-    print("Markov %s: %d Mislabled: %d[%d|%d] (%f)" % (label, target.shape[0], mislabled, cnt_fp, cnt_fn, mislabled / target.shape[0]))
+    runtime = time.time()-time_start
+    print("bayes %s Total: %d Mislabled: %d[%d|%d] (%f%%) [took: %fs]" % (label, data.shape[0], mislabled, cnt_fp, cnt_fn, 100*mislabled / data.shape[0], runtime))
     return
-
-def hex2string(hex):
-    return str(bytes.fromhex(hex))
-
-
-dtype = {
-        '': int,
-        'len': int,
-        'cnt_alpha': int,
-        'cnt_nonAlpha': int,
-        'alpha_to_special': float,
-        'cnt_vowel': int,
-        'cnt_consonant': int,
-        'vowel_to_consonant': object,
-        'entropy': float,
-        'entropy_ideal': float,
-        'emtropy_percentage': float,
-        'fleschkincaid': float,
-        'smog': float,
-        'dalechall': float,
-        'gunningfog': float,
-        'sybl': int,
-        'hex': str,
-        'valid': bool
-}
-
-trainData = pd.read_csv("../Data/Datasets/train.csv", dtype=dtype)
-validateData = pd.read_csv("../Data/Datasets/validate.csv", dtype=dtype)
-testData = pd.read_csv("../Data/Datasets/test.csv", dtype=dtype)
-
-trainTarget = trainData['valid']
-trainData = trainData.sort_values('valid')
-trainData = trainData['hex'].apply(hex2string)
-trainValidation = trainData
-trainData = trainData.iloc[(int(len(trainData)/2+1)):-1]
-trainData = trainData.reset_index(drop=True)
-validateTarget = validateData['valid']
-validateData = validateData['hex'].apply(hex2string)
-testTarget = testData['valid']
-testData = testData['hex'].apply(hex2string)
-
-model = None
-
-print("training...")
-for i in range(trainData.shape[0]):
-    model = train(trainData[i],model)
-    print("%d/%d" % (i, trainData.shape[0]))
-
-test('train',model,trainData,trainTarget)
-test('validate',model,validateData,validateTarget)
-test('test',model,testData,testTarget)

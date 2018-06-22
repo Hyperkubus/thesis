@@ -3,10 +3,35 @@
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
 from keras.layers import Input, Dense
-from keras.models import Model
+from keras.models import Model, load_model
+import time
+
+def train(data,target,validationData,validationTarget):
+    data = data.drop('hex',1)
+    validationData = validationData.drop('hex',1)
+    inputs = Input(shape=(15,))
+    #x = Dense(15, kernel_initializer='normal', activation='relu')(inputs)
+    #x = Dense(10, kernel_initializer='normal', activation='relu')(x)
+    #x = Dense(5, kernel_initializer='normal', activation='relu')(x)
+    #predictions = Dense(1, kernel_initializer='normal', activation='sigmoid')(x)
+    predictions = Dense(1, kernel_initializer='normal', activation='sigmoid')(inputs)
+
+    model = Model(inputs=inputs, outputs=predictions)
+    model.compile(optimizer='adam',
+                  loss='binary_crossentropy',
+                  metrics=['accuracy'])
+    model.fit(data, target, epochs=25, validation_data=(validationData, validationTarget))
+
+    return model
+
+def load(path):
+    return load_model(path)
 
 def test(label, model, data, target):
+    data = data.drop('hex',1)
+    start_time = time.time()
     y_pred = model.predict(data)
+    runtime = time.time()-start_time
     total = data.shape[0]
     cnt_fp = 0
     cnt_fn = 0
@@ -17,64 +42,52 @@ def test(label, model, data, target):
             cnt_fn += (pred == 0)
             cnt_fp += (pred == 1)
         mislabled = cnt_fn + cnt_fp
-    print("keras %s: %d Mislabled: %d[%d|%d] (%f)" % (label, total, mislabled, cnt_fp, cnt_fn, mislabled / total))
+    print("bayes %s Total: %d Mislabled: %d[%d|%d] (%f%%) [took: %fs]" % (label, total, mislabled, cnt_fp, cnt_fn, 100*mislabled / total, runtime))
+    return
 
 
-dtype = {
-        '': int,
-        'len': int,
-        'cnt_alpha': int,
-        'cnt_nonAlpha': int,
-        'alpha_to_special': float,
-        'cnt_vowel': int,
-        'cnt_consonant': int,
-        'vowel_to_consonant': object,
-        'entropy': float,
-        'entropy_ideal': float,
-        'emtropy_percentage': float,
-        'fleschkincaid': float,
-        'smog': float,
-        'dalechall': float,
-        'gunningfog': float,
-        'sybl': int,
-        'hex': str,
-        'valid': bool
-}
+def __main__():
+    dtype = {
+            '': int,
+            'len': int,
+            'cnt_alpha': int,
+            'cnt_nonAlpha': int,
+            'alpha_to_special': float,
+            'cnt_vowel': int,
+            'cnt_consonant': int,
+            'vowel_to_consonant': object,
+            'entropy': float,
+            'entropy_ideal': float,
+            'emtropy_percentage': float,
+            'fleschkincaid': float,
+            'smog': float,
+            'dalechall': float,
+            'gunningfog': float,
+            'sybl': int,
+            'hex': str,
+            'valid': bool
+    }
 
-trainData = pd.read_csv("../Data/Datasets/train.csv", dtype=dtype)
-validateData = pd.read_csv("../Data/Datasets/validate.csv", dtype=dtype)
-testData = pd.read_csv("../Data/Datasets/test.csv", dtype=dtype)
+    trainData = pd.read_csv("../Data/Datasets/train.csv", dtype=dtype)
+    validateData = pd.read_csv("../Data/Datasets/validate.csv", dtype=dtype)
+    testData = pd.read_csv("../Data/Datasets/test.csv", dtype=dtype)
 
-encoder = LabelEncoder()
-encoder.fit(trainData.iloc[:,-1])
+    encoder = LabelEncoder()
+    encoder.fit(trainData.iloc[:, -1])
 
-data_train = trainData.iloc[:,1:15]
-target_train = encoder.transform(trainData.iloc[:,-1])
+    data_train = trainData.iloc[:, 1:16]
+    target_train = encoder.transform(trainData.iloc[:, -1])
 
-data_validate = validateData.iloc[:,1:15]
-target_validate = encoder.transform(validateData.iloc[:,-1])
+    data_validate = validateData.iloc[:, 1:16]
+    target_validate = encoder.transform(validateData.iloc[:, -1])
 
-data_test = testData.iloc[:,1:15]
-target_test = encoder.transform(testData.iloc[:,-1])
+    data_test = testData.iloc[:, 1:16]
+    target_test = encoder.transform(testData.iloc[:, -1])
 
+    model = train(data_train,target_train,data_validate,target_validate)
 
+    model.save('neuralnet.new.h5')
 
-inputs = Input(shape=(14,))
-x = Dense(14, kernel_initializer='normal', activation='relu')(inputs)
-x = Dense(7, kernel_initializer='normal', activation='relu')(x)
-x = Dense(2, kernel_initializer='normal', activation='relu')(x)
-predictions = Dense(1, kernel_initializer='normal', activation='sigmoid')(x)
-
-model = Model(inputs=inputs,outputs=predictions)
-
-model.compile(optimizer='adam',
-              loss='binary_crossentropy',
-              metrics=['accuracy'])
-
-history = model.fit(data_train,target_train,epochs=250,validation_data=(data_validate,target_validate))
-
-model.save('neuralnet.h5')
-
-test('train',model,data_train,target_train)
-test('validate',model,data_validate,target_validate)
-test('test',model,data_test,target_test)
+    test('train',model,data_train,target_train)
+    test('validate',model,data_validate,target_validate)
+    test('test',model,data_test,target_test)
