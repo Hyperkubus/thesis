@@ -156,7 +156,7 @@ def old():
     '''
 
 def analyse():
-    data = subprocess.run("time python test_dict.py")
+    data = subprocess.run(["./time.zsh","test_dict.py"])
     print(data)
 
 if __name__ == "__main__":

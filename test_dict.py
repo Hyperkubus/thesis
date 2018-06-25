@@ -1,3 +1,4 @@
+import sys
 from Utils.DataLoader import loadData
 from Algorithms.dictionary import train, test
 import pandas as pd
@@ -13,5 +14,13 @@ def runTest():
     test('Validation', dictionary, data_val, target_val)
     test('Test', dictionary, data_test, target_test)
 
+
+def runPartial(len):
+    print("Running Dictionary Test...")
+    dictionary = train()
+    data_test, target_test = loadData('test',len)
+    print("Test Results:")
+    test('Test', dictionary, data_test, target_test)
+
 if __name__ == "__main__":
-    runTest()
+    runPartial(int(sys.argv[1]))

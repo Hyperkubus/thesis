@@ -21,8 +21,11 @@ dtype = {
         'valid': bool                   #17
 }
 
-def loadData(type):
+def loadData(type, len=False):
     data = pd.read_csv("Data/Datasets/"+type+".csv", dtype=dtype)
+    if(len != False):
+        data = data.iloc[:len,:]
+        data = data.reset_index(drop=True)
     features = data.iloc[:, 1:17]
     targets = data.iloc[:, -1]
     return features, targets
