@@ -16,8 +16,7 @@ def runTest():
 
 
 def runPartial(len):
-    print("Running Dictionary Test...")
-    dictionary = train()
+    print("Running no Test...")
     data_test, target_test = loadData('%06d' % len)
 
 if __name__ == "__main__":

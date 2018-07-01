@@ -56,7 +56,6 @@ test_markov.py 100000 4.71 87
 test_markov.py 150000 6.28 104
 test_markov.py 200000 8.26 119
 test_markov.py 250000 9.76 139
-
 test_keras.py 1 4.81 208
 test_keras.py 10 4.94 208
 test_keras.py 100 4.99 208
@@ -76,25 +75,6 @@ test_keras.py 100000 8.28 268
 test_keras.py 150000 10.15 298
 test_keras.py 200000 11.73 328
 test_keras.py 250000 13.75 359
-test_none.py 1 4.81 208
-test_none.py 10 4.94 208
-test_none.py 100 4.99 208
-test_none.py 500 4.78 209
-test_none.py 1000 4.88 208
-test_none.py 2000 4.94 209
-test_none.py 2500 4.93 209
-test_none.py 5000 4.97 210
-test_none.py 7500 5.09 211
-test_none.py 10000 5.12 213
-test_none.py 15000 5.34 217
-test_none.py 20000 5.47 219
-test_none.py 25000 5.62 223
-test_none.py 50000 6.54 238
-test_none.py 75000 7.50 252
-test_none.py 100000 8.28 268
-test_none.py 150000 10.15 298
-test_none.py 200000 11.73 328
-test_none.py 250000 13.75 359
 test_none.py 1 2.02 134
 test_none.py 10 1.79 134
 test_none.py 100 1.86 134
