@@ -1,12 +1,6 @@
 #!/usr/bin/zsh
 
-TIMEFMT='%J   %U  user %S system %P cpu %*E total'$'\n'\
-'avg shared (code):         %X KB'$'\n'\
-'avg unshared (data/stack): %D KB'$'\n'\
-'total (sum):               %K KB'$'\n'\
-'max memory:                %M MB'$'\n'\
-'page faults from disk:     %F'$'\n'\
-'other page faults:         %R'
+TIMEFMT='%U %M'
 
 #declare -a tests=("test_none.py" "test_dict.py" "test_bayes.py" "test_markov.py" "test_keras.py")
 declare -a tests=("test_none.py")
