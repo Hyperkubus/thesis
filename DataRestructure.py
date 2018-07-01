@@ -21,11 +21,11 @@ dtype = {
         'valid': bool                   #17
 }
 
-def loadData(type):
-    data = pd.read_csv("Data/Datasets/"+type+".csv", dtype=dtype)
-    features = data.iloc[:, 1:17]
-    targets = data.iloc[:, -1]
-    return features, targets
+data = pd.read_csv("Data/Datasets/test.csv", dtype=dtype)
+single = data.iloc[:1,:]
+data = single
 
-def hex2string(hex):
-    return bytes.fromhex(hex).decode('utf-8')
+for i in [1,10,100,500,1000,1500,2000,2500,5000,7500,10000,15000,20000,25000,50000,75000,100000,150000,200000,250000]:
+    while (data.shape[0] < i):
+        data = pd.concat((data,single.iloc[:1,:]))
+    data.to_csv('./Data/Datasets/%06d.csv' % i)

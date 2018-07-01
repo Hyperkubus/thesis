@@ -1,0 +1,228 @@
+test_dict.py 1
+1.88s  user 0.13s system 99% cpu 2.025 total
+max memory:                129 MB
+test_bayes.py 1
+1.67s  user 0.11s system 99% cpu 1.797 total
+max memory:                85 MB
+test_markov.py 1
+0.97s  user 0.09s system 99% cpu 1.072 total
+max memory:                62 MB
+test_keras.py 1
+4.81s  user 0.28s system 98% cpu 5.159 total
+max memory:                208 MB
+test_dict.py 10
+1.86s  user 0.13s system 99% cpu 1.996 total
+max memory:                132 MB
+test_bayes.py 10
+1.65s  user 0.12s system 99% cpu 1.782 total
+max memory:                85 MB
+test_markov.py 10
+1.05s  user 0.07s system 99% cpu 1.125 total
+max memory:                61 MB
+test_keras.py 10
+4.94s  user 0.30s system 99% cpu 5.269 total
+max memory:                208 MB
+test_dict.py 100
+1.96s  user 0.14s system 99% cpu 2.113 total
+max memory:                130 MB
+test_bayes.py 100
+1.65s  user 0.13s system 99% cpu 1.796 total
+max memory:                85 MB
+test_markov.py 100
+1.00s  user 0.07s system 99% cpu 1.075 total
+max memory:                62 MB
+test_keras.py 100
+4.99s  user 0.30s system 98% cpu 5.379 total
+max memory:                208 MB
+test_dict.py 500
+2.06s  user 0.15s system 99% cpu 2.221 total
+max memory:                132 MB
+test_bayes.py 500
+1.78s  user 0.10s system 99% cpu 1.891 total
+max memory:                85 MB
+test_markov.py 500
+1.00s  user 0.08s system 99% cpu 1.093 total
+max memory:                61 MB
+test_keras.py 500
+4.78s  user 0.29s system 99% cpu 5.111 total
+max memory:                209 MB
+test_dict.py 1000
+1.89s  user 0.15s system 99% cpu 2.048 total
+max memory:                134 MB
+test_bayes.py 1000
+1.69s  user 0.08s system 99% cpu 1.780 total
+max memory:                85 MB
+test_markov.py 1000
+1.03s  user 0.06s system 99% cpu 1.099 total
+max memory:                62 MB
+test_keras.py 1000
+4.88s  user 0.30s system 99% cpu 5.199 total
+max memory:                208 MB
+test_dict.py 2000
+1.98s  user 0.12s system 99% cpu 2.121 total
+max memory:                129 MB
+test_bayes.py 2000
+1.69s  user 0.10s system 99% cpu 1.800 total
+max memory:                84 MB
+test_markov.py 2000
+1.08s  user 0.07s system 99% cpu 1.157 total
+max memory:                61 MB
+test_keras.py 2000
+4.94s  user 0.27s system 99% cpu 5.229 total
+max memory:                209 MB
+test_dict.py 2500
+2.03s  user 0.12s system 99% cpu 2.164 total
+max memory:                135 MB
+test_bayes.py 2500
+1.72s  user 0.11s system 98% cpu 1.852 total
+max memory:                85 MB
+test_markov.py 2500
+1.06s  user 0.10s system 99% cpu 1.162 total
+max memory:                61 MB
+test_keras.py 2500
+4.93s  user 0.28s system 99% cpu 5.230 total
+max memory:                209 MB
+test_dict.py 5000
+2.28s  user 0.13s system 99% cpu 2.420 total
+max memory:                132 MB
+test_bayes.py 5000
+1.76s  user 0.11s system 99% cpu 1.883 total
+max memory:                86 MB
+test_markov.py 5000
+1.23s  user 0.08s system 99% cpu 1.325 total
+max memory:                63 MB
+test_keras.py 5000
+4.97s  user 0.26s system 99% cpu 5.241 total
+max memory:                210 MB
+test_dict.py 7500
+2.31s  user 0.14s system 99% cpu 2.460 total
+max memory:                135 MB
+test_bayes.py 7500
+1.75s  user 0.13s system 99% cpu 1.894 total
+max memory:                88 MB
+test_markov.py 7500
+1.25s  user 0.09s system 99% cpu 1.351 total
+max memory:                63 MB
+test_keras.py 7500
+5.09s  user 0.27s system 99% cpu 5.358 total
+max memory:                211 MB
+test_dict.py 10000
+2.52s  user 0.13s system 99% cpu 2.661 total
+max memory:                135 MB
+test_bayes.py 10000
+1.79s  user 0.13s system 99% cpu 1.929 total
+max memory:                89 MB
+test_markov.py 10000
+1.34s  user 0.07s system 99% cpu 1.428 total
+max memory:                64 MB
+test_keras.py 10000
+5.12s  user 0.31s system 100% cpu 5.429 total
+max memory:                213 MB
+test_dict.py 15000
+2.77s  user 0.13s system 99% cpu 2.918 total
+max memory:                135 MB
+test_bayes.py 15000
+1.92s  user 0.10s system 99% cpu 2.035 total
+max memory:                92 MB
+test_markov.py 15000
+1.49s  user 0.10s system 99% cpu 1.598 total
+max memory:                67 MB
+test_keras.py 15000
+5.34s  user 0.30s system 100% cpu 5.615 total
+max memory:                217 MB
+test_dict.py 20000
+3.05s  user 0.13s system 99% cpu 3.197 total
+max memory:                134 MB
+test_bayes.py 20000
+2.00s  user 0.10s system 99% cpu 2.104 total
+max memory:                95 MB
+test_markov.py 20000
+1.75s  user 0.06s system 99% cpu 1.816 total
+max memory:                70 MB
+test_keras.py 20000
+5.47s  user 0.30s system 100% cpu 5.738 total
+max memory:                219 MB
+test_dict.py 25000
+3.35s  user 0.10s system 99% cpu 3.466 total
+max memory:                129 MB
+test_bayes.py 25000
+2.15s  user 0.12s system 99% cpu 2.288 total
+max memory:                99 MB
+test_markov.py 25000
+1.87s  user 0.08s system 99% cpu 1.967 total
+max memory:                72 MB
+test_keras.py 25000
+5.62s  user 0.35s system 100% cpu 5.912 total
+max memory:                223 MB
+test_dict.py 50000
+4.86s  user 0.15s system 99% cpu 5.037 total
+max memory:                134 MB
+test_bayes.py 50000
+2.51s  user 0.15s system 99% cpu 2.679 total
+max memory:                117 MB
+test_markov.py 50000
+2.80s  user 0.10s system 99% cpu 2.917 total
+max memory:                78 MB
+test_keras.py 50000
+6.54s  user 0.33s system 102% cpu 6.733 total
+max memory:                238 MB
+test_dict.py 75000
+6.17s  user 0.16s system 99% cpu 6.363 total
+max memory:                132 MB
+test_bayes.py 75000
+2.90s  user 0.12s system 99% cpu 3.029 total
+max memory:                135 MB
+test_markov.py 75000
+3.67s  user 0.10s system 99% cpu 3.790 total
+max memory:                81 MB
+test_keras.py 75000
+7.50s  user 0.35s system 103% cpu 7.618 total
+max memory:                252 MB
+test_dict.py 100000
+8.11s  user 0.14s system 99% cpu 8.296 total
+max memory:                135 MB
+test_bayes.py 100000
+3.30s  user 0.14s system 99% cpu 3.452 total
+max memory:                152 MB
+test_markov.py 100000
+4.71s  user 0.09s system 99% cpu 4.825 total
+max memory:                87 MB
+test_keras.py 100000
+8.28s  user 0.39s system 103% cpu 8.347 total
+max memory:                268 MB
+test_dict.py 150000
+10.44s  user 0.17s system 99% cpu 10.657 total
+max memory:                152 MB
+test_bayes.py 150000
+3.98s  user 0.20s system 99% cpu 4.204 total
+max memory:                188 MB
+test_markov.py 150000
+6.28s  user 0.12s system 99% cpu 6.435 total
+max memory:                104 MB
+test_keras.py 150000
+10.15s  user 0.47s system 104% cpu 10.136 total
+max memory:                298 MB
+test_dict.py 200000
+13.91s  user 0.17s system 99% cpu 14.152 total
+max memory:                168 MB
+test_bayes.py 200000
+4.76s  user 0.21s system 99% cpu 5.000 total
+max memory:                225 MB
+test_markov.py 200000
+8.26s  user 0.12s system 99% cpu 8.420 total
+max memory:                119 MB
+test_keras.py 200000
+11.73s  user 0.55s system 105% cpu 11.606 total
+max memory:                328 MB
+test_dict.py 250000
+16.67s  user 0.20s system 99% cpu 16.944 total
+max memory:                187 MB
+test_bayes.py 250000
+5.69s  user 0.22s system 99% cpu 5.947 total
+max memory:                266 MB
+test_markov.py 250000
+9.76s  user 0.14s system 99% cpu 9.944 total
+max memory:                139 MB
+test_keras.py 250000
+13.75s  user 0.61s system 106% cpu 13.512 total
+max memory:                359 MB

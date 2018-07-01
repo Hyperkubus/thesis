@@ -19,8 +19,6 @@ def runPartial(len):
     print("Running Dictionary Test...")
     dictionary = train()
     data_test, target_test = loadData('%06d' % len)
-    print("Test Results:")
-    test('Test', dictionary, data_test, target_test)
 
 if __name__ == "__main__":
     runPartial(int(sys.argv[1]))

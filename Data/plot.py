@@ -29,8 +29,8 @@ dtype = {
             'hex': str,
             'valid': bool
     }
-datasetPOS = pd.read_csv("../Data/features.csv", dtype=dtype)
-datasetNEG = pd.read_csv("../Data/features.neg.csv", dtype=dtype)
+datasetPOS = pd.read_csv("../Data/features.new.csv", dtype=dtype)
+datasetNEG = pd.read_csv("../Data/features.new.neg.csv", dtype=dtype)
 
 datapoints = [
     ["Wordlaenge",52],
@@ -64,7 +64,7 @@ for i in range(0,15): #[0,3,6,9,10,11,12,13]:
     #plt.hist(data[:,i],bins, histtype='step')
     plt.title(datapoints[i][0])
     plt.legend(loc='best')
-    plt.savefig('../Graphs/'+datapoints[i][0]+'.png')
+    plt.savefig('../Graphs.new/'+datapoints[i][0]+'.png')
     plt.close()
     plt.clf()
 
@@ -75,7 +75,7 @@ for i in range(0,15): #[0,3,6,9,10,11,12,13]:
     plt.title(datapoints[i][0]+" (log-scale)")
     plt.legend(loc='best')
     plt.yscale('log', nonposy='clip')
-    plt.savefig('../Graphs/'+datapoints[i][0]+'_log.png')
+    plt.savefig('../Graphs.new/'+datapoints[i][0]+'_log.png')
     plt.close()
     plt.clf()
 '''

@@ -41,23 +41,20 @@ datasetSplitter.py splits our extracted features into train, validation and test
 
 ## Algorithms
 
-Model |Data      |Total|Mislabeld|FalsePositive|FalseNegative|PercentageFalse
-------|----------|-----|---------|-------------|-------------|---------------
-Dict  |train     |39862|10794    |0            |10794        |27.08%
-Dict  |validation|9966 |2718     |0            |2718         |27.27%
-Dict  |test      |12458|3400     |1            |3399         |27.29%
-Bayes |train     |39862|3184     |323          |2861         |7.98%
-Bayes |validation|9966 |779      |79           |700          |7.81%
-Bayes |test      |12458|1025     |110          |915          |8.22%
-Markov|train     |39862|110      |109          |1            |2.76%
-Markov|validate  |9966 |171      |42           |129          |1.71%
-Markov|test      |12458|171      |42           |129          |1.37%
-keras |train     |39862|1137     |389          |748          |2.85%
-keras |validate  |9966 |292      |104          |188          |2.93%
-keras |test      |12458|336      |129          |207          |2.70%
-nohidd|train     |39862|1308     |748          |560          |3.28%
-nohidd|validate  |9966 |338      |194          |144          |3.39%
-nohidd|test      |12458|412      |263          |149          |3.31%
+Model |Data      |Total|Mislabeld|FalsePositive|FalseNegative|PercentageFalse|PercentageFN
+------|----------|-----|---------|-------------|-------------|---------------|------------
+Dict  |train     |39862|10794    |0            |10794        |27.08%         | 100
+Dict  |validation|9966 |2718     |0            |2718         |27.27%         | 100
+Dict  |test      |12458|3400     |1            |3399         |27.29%         |~100
+Bayes |train     |39862|3184     |323          |2861         |7.98%          |  90
+Bayes |validation|9966 |779      |79           |700          |7.81%          |  90
+Bayes |test      |12458|1025     |110          |915          |8.22%          |  89
+Markov|train     |39862|110      |110          |0            |2.76%          |   0
+Markov|validate  |9966 |150      |29           |121          |1.51%          |  80
+Markov|test      |12458|173      |43           |130          |1.39%          |  75
+nohidd|train     |39862|1308     |748          |560          |3.28%          |  43
+nohidd|validate  |9966 |338      |194          |144          |3.39%          |  43
+nohidd|test      |12458|412      |263          |149          |3.31%          |  36
 
 
 # Analysis

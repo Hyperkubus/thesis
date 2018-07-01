@@ -1,4 +1,4 @@
-from textatistic import Textatistic
+import textatistic
 import binascii
 import math
 
@@ -67,20 +67,14 @@ def extract(input_file, output_file):
                     shannon = entropy(myLine)
                     ideal = entropy_ideal(len(myLine))
                     ent_percent = entropyPercentage(myLine)
-                    try:
-                        t = Textatistic(myLine+'.')
-                        fleschkincaid = t.fleschkincaid_score
-                        smog = t.smog_score
-                        dalechall = t.dalechall_score
-                        gunningfog = t.gunningfog_score
-                        sybl = t.sybl_count
-                    except ZeroDivisionError:
-                        fleschkincaid = -1
-                        smog = -1
-                        dalechall = -1
-                        gunningfog = -1
-                        sybl = -1
-                        pass
+                    sybl = textatistic.sybl_counts(myLine)['sybl_count']
+                    fleschkincaid = 205.82-84.6*sybl
+                    smog = 3.1291+1.0430*math.sqrt(30*(sybl>2))
+
+                    dccnt = textatistic.notdalechall_count(myLine)
+                    dalechall = 19.4265*dccnt+0.0496
+
+                    gunningfog = 0.4+40*(sybl>2)
                     data = (str(len(myLine)) + ','
                               + str(alphas) + ','
                               + str(specials) + ','
@@ -96,7 +90,7 @@ def extract(input_file, output_file):
                               + str(dalechall) + ','
                               + str(gunningfog) + ','
                               + str(sybl) + ','
-                              + myLine.encode('utf-8').hex() + '\n')
+                              + myLine.encode('utf-8').hex()+'\n')
                     output.write(data)
                     i += 1
                     print("%d/%d" % (i,len(lines)))
@@ -104,10 +98,10 @@ def extract(input_file, output_file):
 
 
 input_data = "Data/plain/data.txt"
-output_data = "Data/features.csv"
+output_data = "Data/features.new.csv"
 
 input_data_neg = "Data/plain/data.neg.txt"
-output_data_neg = "Data/features.neg.csv"
+output_data_neg = "Data/features.new.neg.csv"
 
 extract(input_data, output_data)
 extract(input_data_neg, output_data_neg)

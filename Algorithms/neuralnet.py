@@ -22,6 +22,7 @@ def train(data,target,validationData,validationTarget):
                   metrics=['accuracy'])
     model.fit(data, target, epochs=25, validation_data=(validationData, validationTarget))
 
+    model.save('neuralnet.h5')
     return model
 
 def load(path):
